@@ -13,7 +13,11 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0a0a0f 0%, #0f1629 100%);
+            background: #0a0a0f; /* Fallback */
+            background: 
+                radial-gradient(ellipse at bottom, #0f1629 0%, #0a0a0f 50%),
+                url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23121826" fill-opacity="0.7"%3E%3Cpath d="M12 0L0 12L12 24L24 12L12 0Z M36 0L24 12L36 24L48 12L36 0Z M12 36L0 48L12 60L24 48L12 36Z M36 36L24 48L36 60L48 48L36 36Z" fill-rule="evenodd"/%3E%3C/g%3E%3C/svg%3E');
+            background-attachment: fixed;
             color: #f8fafc;
             min-height: 100vh;
             display: flex;
@@ -24,7 +28,7 @@
         
         .login-container {
             width: 100%;
-            max-width: 500px; /* Increased from 400px */
+            max-width: 500px;
         }
         
         .logo {
@@ -39,25 +43,26 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: 1.2px;
+            letter-spacing: 1.5px; /* Increased letter spacing for impact */
             margin-bottom: 8px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.6); /* Subtle glow */
         }
         
         .logo p {
             color: #94a3b8;
             font-size: 15px;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px; /* Added letter spacing */
         }
         
         .login-card {
             background: #121826;
             border-radius: 16px;
-            padding: 50px 45px; /* Increased padding */
-            border: 1px solid #222938;
+            padding: 55px 50px; /* Increased padding further */
+            border: 1px solid #2e3a52; /* Slightly darker, more prominent border */
             box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+                0 20px 40px rgba(0, 0, 0, 0.6), /* More pronounced shadow */
+                inset 0 1px 0 rgba(255, 255, 255, 0.08), /* Brighter inner highlight */
+                0 0 30px rgba(59, 130, 246, 0.2); /* Subtle blue glow */
         }
         
         .login-header {
@@ -102,55 +107,55 @@
         
         .input-field:focus {
             outline: none;
-            border-color: #3b82f6;
+            border-color: #4a90e2; /* Brighter blue on focus */
             box-shadow: 
-                0 0 0 3px rgba(59, 130, 246, 0.15),
-                0 0 15px rgba(59, 130, 246, 0.1);
-            background: #0a0d14;
+                0 0 0 4px rgba(74, 144, 226, 0.2), /* Larger, softer glow */
+                0 0 20px rgba(74, 144, 226, 0.2); /* More intense focus glow */
+            background: #0d1117; /* Keep background dark on focus */
         }
         
         .input-field::placeholder {
-            color: #4a5568;
+            color: #6b7280; /* Slightly lighter placeholder */
         }
         
         .login-btn {
             width: 100%;
             padding: 16px;
-            background: linear-gradient(90deg, #3b82f6, #2563eb);
+            background: linear-gradient(90deg, #4a90e2, #2563eb); /* Updated gradient for consistency */
             color: white;
             border: none;
             border-radius: 10px;
-            font-size: 16px;
+            font-size: 17px; /* Slightly larger font */
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 15px;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease; /* Smoother transition */
+            margin-top: 20px; /* Increased margin */
+            letter-spacing: 0.8px;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4); /* More spread out shadow */
         }
         
         .login-btn:hover {
             background: linear-gradient(90deg, #2563eb, #1d4ed8);
-            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4);
-            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.5); /* Stronger shadow on hover */
+            transform: translateY(-3px); /* More pronounced lift */
         }
         
         .login-btn:active {
             transform: translateY(0);
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 3px 10px rgba(37, 99, 235, 0.4);
         }
         
         .register-link {
             text-align: center;
             margin-top: 35px;
             padding-top: 30px;
-            border-top: 1px solid #252f3f;
+            border-top: 1px solid #2f3a4e; /* Slightly darker border */
             color: #94a3b8;
             font-size: 15px;
         }
         
         .register-link a {
-            color: #60a5fa;
+            color: #4a90e2; /* Updated link color */
             text-decoration: none;
             font-weight: 700;
             margin-left: 5px;
@@ -165,9 +170,9 @@
             height: 2px;
             bottom: 0;
             left: 0;
-            background: #60a5fa;
+            background: #4a90e2; /* Match link color */
             transform: scaleX(0);
-            transition: transform 0.3s;
+            transition: transform 0.3s ease; /* Smoother transition */
         }
         
         .register-link a:hover::after {
@@ -175,22 +180,23 @@
         }
         
         .error-message {
-            background: rgba(220, 38, 38, 0.15);
-            border: 1px solid rgba(220, 38, 38, 0.3);
-            padding: 14px 18px;
+            background: rgba(220, 38, 38, 0.2); /* Slightly more opaque background */
+            border: 1px solid rgba(252, 165, 165, 0.4); /* Lighter, more visible border */
+            padding: 15px 20px; /* Increased padding */
             border-radius: 10px;
-            margin-bottom: 25px;
+            margin-bottom: 28px; /* Increased margin */
             color: #fca5a5;
             font-size: 15px;
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px; /* Increased gap */
+            box-shadow: 0 0 15px rgba(220, 38, 38, 0.2); /* Red glow for error */
         }
         
         .error-message::before {
-            content: "⚠";
-            font-size: 18px;
+            content: "🚨"; /* More impactful icon */
+            font-size: 20px; /* Larger icon */
         }
         
         .back-home {

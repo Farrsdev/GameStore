@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\GenreController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,16 +27,33 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return view('user.dashboard');
-    });
+    Route::get('/dashboard', [GameController::class, 'userIndex'])->name('user.dashboard');
+    Route::get('/game/{id}', [GameController::class, 'userShow'])->name('user.game.show');
 
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
 
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    });
+    // Admin Dashboard
+    Route::get('/admin/dashboard', [GameController::class, 'adminDashboard'])->name('admin.dashboard');
+
+    // Genre CRUD Routes
+    Route::resource('admin/genres', GenreController::class, ['as' => 'admin'])->names([
+        'index' => 'admin.genres.index',
+        'create' => 'admin.genres.create',
+        'store' => 'admin.genres.store',
+        'edit' => 'admin.genres.edit',
+        'update' => 'admin.genres.update',
+        'destroy' => 'admin.genres.destroy',
+    ]);
+
+    // Game CRUD Routes
+    Route::get('/admin/games', [GameController::class, 'index'])->name('admin.games.index');
+    Route::get('/admin/games/create', [GameController::class, 'create'])->name('admin.games.create');
+    Route::post('/admin/games', [GameController::class, 'store'])->name('admin.games.store');
+    Route::get('/admin/games/{id}', [GameController::class, 'show'])->name('admin.games.show');
+    Route::get('/admin/games/{id}/edit', [GameController::class, 'edit'])->name('admin.games.edit');
+    Route::put('/admin/games/{id}', [GameController::class, 'update'])->name('admin.games.update');
+    Route::delete('/admin/games/{id}', [GameController::class, 'destroy'])->name('admin.games.destroy');
 
 });
