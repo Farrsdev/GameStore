@@ -27,6 +27,11 @@ class GameController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * 
+     * Handle game creation dengan type, embed_url, file_path.
+     * Type menentukan cara user memainkan game:
+     * - 'browser': Game dimainkan via iframe (embed_url)
+     * - 'download': User bisa download file game (file_path)
      */
     public function store(Request $request)
     {
@@ -49,6 +54,9 @@ class GameController extends Controller
             'release_date' => 'nullable|date',
             'rating' => 'nullable|numeric|min:0|max:10',
             'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'type' => 'required|in:browser,download',
+            'embed_url' => 'required_if:type,browser|nullable|url',
+            'file_path' => 'required_if:type,download|nullable|string',
         ]);
 
         $data = $request->except('cover', 'genres');
@@ -95,6 +103,8 @@ class GameController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * 
+     * Support update type, embed_url, file_path.
      */
     public function update(Request $request, string $id)
     {
@@ -112,6 +122,9 @@ class GameController extends Controller
             'release_date' => 'nullable|date',
             'rating' => 'nullable|numeric|min:0|max:10',
             'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'type' => 'required|in:browser,download',
+            'embed_url' => 'required_if:type,browser|nullable|url',
+            'file_path' => 'required_if:type,download|nullable|string',
         ]);
 
         $data = $request->except('cover', 'genres');
@@ -171,6 +184,17 @@ class GameController extends Controller
         $recentGames = Game::latest()->limit(3)->get();
         
         return view('admin.dashboard', compact('totalGames', 'totalStock', 'totalUsers', 'recentGames'));
+    }
+
+    /**
+     * Show user's game library - games they've purchased.
+     */
+    public function userLibrary()
+    {
+        $user = auth()->user();
+        $ownedGames = $user->games()->with('genres')->get();
+        
+        return view('user.library', compact('ownedGames'));
     }
 
     /**

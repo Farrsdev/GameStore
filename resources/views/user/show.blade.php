@@ -417,10 +417,24 @@
                     </div>
 
                     <div class="buttons">
-                        <button class="btn btn-buy" {{ $game->stock <= 0 ? 'disabled' : '' }}>
-                            <i class="fas fa-shopping-cart"></i>
-                            {{ $game->stock > 0 ? 'Beli Sekarang' : 'Stok Habis' }}
-                        </button>
+                        @php
+                            $isOwned = auth()->check() && auth()->user()->games()->where('game_id', $game->id)->exists();
+                        @endphp
+
+                        @if ($isOwned)
+                            <a href="{{ route('play.game', $game->id) }}" class="btn btn-buy">
+                                <i class="fas fa-play"></i> Play Game
+                            </a>
+                        @else
+                            <form action="{{ route('cart.add', $game->id) }}" method="POST" style="width: 100%;">
+                                @csrf
+                                <button type="submit" class="btn btn-buy" style="width: 100%;" {{ $game->stock <= 0 ? 'disabled' : '' }}>
+                                    <i class="fas fa-shopping-cart"></i>
+                                    {{ $game->stock > 0 ? 'Tambah ke Cart' : 'Stok Habis' }}
+                                </button>
+                            </form>
+                        @endif
+                        
                         <button class="btn btn-wishlist">
                             <i class="fas fa-heart"></i> Tambah ke Wishlist
                         </button>

@@ -25,6 +25,9 @@ class Game extends Model
         'release_date',
         'rating',
         'cover',
+        'type',
+        'embed_url',
+        'file_path',
     ];
 
     /**
@@ -46,5 +49,14 @@ class Game extends Model
     {
         return $this->belongsToMany(Genre::class, 'game_genre')
             ->select('genres.id', 'genres.name', 'genres.slug', 'genres.description');
+    }
+
+    /**
+     * Get users yang telah membeli game ini.
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_games')
+            ->withTimestamps();
     }
 }

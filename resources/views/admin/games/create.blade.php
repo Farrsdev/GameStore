@@ -512,6 +512,41 @@
                     @enderror
                 </div>
 
+                <!-- GAME TYPE SECTION (NEW) -->
+                <div class="form-group">
+                    <label for="type">Game Type *</label>
+                    <select name="type" id="type" class="form-control" required onchange="toggleGameTypeFields()">
+                        <option value="">-- Select Game Type --</option>
+                        <option value="browser" {{ old('type') == 'browser' ? 'selected' : '' }}>Browser Game (Iframe)</option>
+                        <option value="download" {{ old('type') == 'download' ? 'selected' : '' }}>Download Game (File)</option>
+                    </select>
+                    @error('type')
+                        <div class="error-message">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- EMBED URL (for browser games) -->
+                <div class="form-group" id="embedUrlGroup" style="display: none;">
+                    <label for="embed_url">Embed URL (Browser Game) *</label>
+                    <input type="url" name="embed_url" id="embed_url" class="form-control"
+                        placeholder="e.g., https://example.com/game" value="{{ old('embed_url') }}">
+                    <small style="color: #64748b; margin-top: 6px; display: block;">URL of the iframe to embed. Required for browser games.</small>
+                    @error('embed_url')
+                        <div class="error-message">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- FILE PATH (for download games) -->
+                <div class="form-group" id="filePathGroup" style="display: none;">
+                    <label for="file_path">File Path (Download Game) *</label>
+                    <input type="text" name="file_path" id="file_path" class="form-control"
+                        placeholder="e.g., /storage/games/game-name.zip" value="{{ old('file_path') }}">
+                    <small style="color: #64748b; margin-top: 6px; display: block;">Path to downloadable game file. Required for download games.</small>
+                    @error('file_path')
+                        <div class="error-message">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 <div class="form-group">
                     <label for="cover">Cover Image</label>
                     <div class="file-input-wrapper">
@@ -546,6 +581,37 @@
     </div>
 
     <script>
+        // Toggle game type fields
+        function toggleGameTypeFields() {
+            const type = document.getElementById('type').value;
+            const embedUrlGroup = document.getElementById('embedUrlGroup');
+            const filePathGroup = document.getElementById('filePathGroup');
+            const embedUrlInput = document.getElementById('embed_url');
+            const filePathInput = document.getElementById('file_path');
+
+            if (type === 'browser') {
+                embedUrlGroup.style.display = 'block';
+                filePathGroup.style.display = 'none';
+                embedUrlInput.required = true;
+                filePathInput.required = false;
+            } else if (type === 'download') {
+                embedUrlGroup.style.display = 'none';
+                filePathGroup.style.display = 'block';
+                embedUrlInput.required = false;
+                filePathInput.required = true;
+            } else {
+                embedUrlGroup.style.display = 'none';
+                filePathGroup.style.display = 'none';
+                embedUrlInput.required = false;
+                filePathInput.required = false;
+            }
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', function() {
+            toggleGameTypeFields();
+        });
+
         // Genre selection functionality
         const genreInputWrapper = document.getElementById('genreInputWrapper');
         const genreDropdown = document.getElementById('genreDropdown');
@@ -656,6 +722,26 @@
             if (checkedGenres.length === 0) {
                 e.preventDefault();
                 alert('Please select at least one genre');
+                return false;
+            }
+
+            const type = document.getElementById('type').value;
+            if (!type) {
+                e.preventDefault();
+                alert('Please select a game type (Browser or Download)');
+                return false;
+            }
+
+            if (type === 'browser' && !document.getElementById('embed_url').value) {
+                e.preventDefault();
+                alert('Please enter Embed URL for browser games');
+                return false;
+            }
+
+            if (type === 'download' && !document.getElementById('file_path').value) {
+                e.preventDefault();
+                alert('Please enter File Path for download games');
+                return false;
             }
         });
     </script>

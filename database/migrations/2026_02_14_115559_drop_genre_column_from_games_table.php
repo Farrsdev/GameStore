@@ -8,18 +8,17 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * Note: This migration was a no-op because games table never had a genre column
+     * (uses game_genre pivot table instead)
      */
-  public function up()
-{
-    Schema::table('games', function (Blueprint $table) {
-        $table->dropColumn('genre');
-    });
-}
+    public function up()
+    {
+        // No-op: genre column was never in games table
+        // Games uses pivot table (game_genre) for many-to-many relationship
+    }
 
-public function down()
-{
-    Schema::table('games', function (Blueprint $table) {
-        $table->string('genre');
-    });
-}
+    public function down()
+    {
+        // No-op
+    }
 };

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="id">
 
 <head>
@@ -17,6 +16,7 @@
             background-attachment: fixed;
             color: #f8fafc;
             margin: 0;
+            min-height: 100vh;
         }
 
         /* Navbar */
@@ -40,6 +40,31 @@
             text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
         }
 
+        .nav-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 16px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            background: #2d3748;
+            color: #60a5fa;
+        }
+
+        .nav-link.active {
+            background: #2d3748;
+            color: #60a5fa;
+        }
+
         .logout-btn {
             background: #ef4444;
             border: none;
@@ -58,11 +83,105 @@
             transform: translateY(-2px);
         }
 
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #1a202c;
+            border-left: 4px solid #10b981;
+            border-radius: 8px;
+            padding: 16px 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(16, 185, 129, 0.3);
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            max-width: 350px;
+            border: 1px solid #2d3748;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(16, 185, 129, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #10b981;
+            font-size: 20px;
+        }
+
+        .notification-text {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 4px;
+        }
+
+        .notification-message {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        .notification-close {
+            color: #64748b;
+            cursor: pointer;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .notification-close:hover {
+            color: #f8fafc;
+        }
+
         /* Content */
         .container {
             padding: 40px;
             max-width: 1400px;
             margin: 0 auto;
+        }
+
+        .welcome-section {
+            margin-bottom: 30px;
+        }
+
+        .welcome-title {
+            font-size: 28px;
+            color: #f8fafc;
+            margin-bottom: 8px;
+        }
+
+        .welcome-subtitle {
+            color: #94a3b8;
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .section-title {
+            color: #cbd5e1;
+            font-size: 22px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title i {
+            color: #a855f7;
         }
 
         .games-grid {
@@ -79,12 +198,9 @@
             border: 1px solid #2d3748;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-
-            /* TAMBAHAN */
             display: flex;
             flex-direction: column;
         }
-
 
         .game-card:hover {
             transform: translateY(-8px);
@@ -107,14 +223,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #64748b;
-            font-size: 48px;
+            font-size: 64px;
+            font-weight: 700;
+            color: #3b82f6;
         }
 
         .game-info {
             padding: 20px;
-
-            /* TAMBAHAN */
             display: flex;
             flex-direction: column;
             flex: 1;
@@ -179,16 +294,9 @@
             color: #ef4444;
         }
 
-        .game-rating {
-            color: #f59e0b;
-            font-size: 13px;
-            margin-bottom: 10px;
-        }
-
-        .btn-buy {
+        .btn {
             width: 100%;
             padding: 11px;
-            background: linear-gradient(90deg, #10b981, #059669);
             border: none;
             border-radius: 8px;
             color: white;
@@ -196,27 +304,46 @@
             font-size: 14px;
             cursor: pointer;
             transition: all 0.3s ease;
-
-            /* TAMBAHAN PENTING */
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
             box-sizing: border-box;
+            gap: 6px;
+        }
+
+        .btn-buy {
+            background: linear-gradient(90deg, #10b981, #059669);
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
         }
 
         .btn-detail {
             background: linear-gradient(90deg, #3b82f6, #2563eb);
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
         }
 
+        .btn-play {
+            background: linear-gradient(90deg, #a855f7, #9333ea);
+            box-shadow: 0 4px 10px rgba(168, 85, 247, 0.3);
+        }
 
+        .btn:hover {
+            transform: translateY(-2px);
+        }
 
         .btn-buy:hover {
-            transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
         }
 
-        .btn-buy:disabled {
+        .btn-detail:hover {
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-play:hover {
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn:disabled {
             background: #4b5563;
             cursor: not-allowed;
             transform: none;
@@ -227,47 +354,105 @@
         .action-buttons {
             display: grid;
             gap: 8px;
-
-            /* INI SPACERNYA */
             margin-top: auto;
         }
 
-
         .empty-games {
+            background: #1a202c;
+            border-radius: 12px;
+            border: 1px solid #2d3748;
+            padding: 60px;
             text-align: center;
-            padding: 60px 20px;
-            color: #64748b;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .empty-games i {
             font-size: 48px;
-            margin-bottom: 16px;
+            color: #3b82f6;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .empty-games h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #cbd5e1;
+            margin-bottom: 10px;
+        }
+
+        .empty-games p {
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 18px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-right {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .container {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 
 <body>
-
     <div class="navbar">
         <div class="logo">Farr'sStore</div>
 
-        <form method="POST" action="/logout">
-            @csrf
-            <button class="logout-btn">Logout</button>
-        </form>
+        <div class="nav-right">
+            <a href="{{ route('user.dashboard') }}" class="nav-link active">
+                <i class="fas fa-store"></i> Browse
+            </a>
+            <a href="{{ route('user.library') }}" class="nav-link">
+                <i class="fas fa-library"></i> My Library
+            </a>
+            <a href="{{ route('cart.view') }}" class="nav-link">
+                <i class="fas fa-shopping-cart"></i> Cart
+            </a>
+            <form method="POST" action="/logout" style="display: inline;">
+                @csrf
+                <button class="logout-btn">Logout</button>
+            </form>
+        </div>
+    </div>
 
+    <!-- Notification -->
+    <div id="cartNotification" class="notification">
+        <div class="notification-content">
+            <div class="notification-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <div class="notification-text">
+                <div class="notification-title" id="notificationTitle">Berhasil!</div>
+                <div class="notification-message" id="notificationMessage">Game berhasil ditambahkan ke keranjang</div>
+            </div>
+            <div class="notification-close" onclick="hideNotification()">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
     </div>
 
     <div class="container">
-
-        <div style="margin-bottom: 30px;">
-            <h2><i class="fas fa-user-circle" style="color: #60a5fa;"></i> Halo, {{ Auth::user()->name }} 👋</h2>
-            <p style="color: #94a3b8; margin: 0;">Selamat datang di Farr'sStore. Jelajahi koleksi game terbaru kami!</p>
+        <div class="welcome-section">
+            <h2 class="welcome-title">
+                <i class="fas fa-user-circle" style="color: #60a5fa;"></i> 
+                Halo, {{ Auth::user()->name }} 👋
+            </h2>
+            <p class="welcome-subtitle">Selamat datang di Farr'sStore. Jelajahi koleksi game terbaru kami!</p>
         </div>
 
         <div>
-            <h3 style="color: #cbd5e1; font-size: 22px; margin-bottom: 20px;">
-                <i class="fas fa-gamepad" style="color: #a855f7;"></i> Koleksi Game
+            <h3 class="section-title">
+                <i class="fas fa-gamepad"></i> Koleksi Game
             </h3>
 
             @if (isset($games) && $games->count() > 0)
@@ -277,8 +462,7 @@
                             @if ($game->cover)
                                 <img src="/covers/{{ $game->cover }}" alt="{{ $game->title }}" class="game-cover">
                             @else
-                                <div class="game-cover-placeholder"
-                                    style="display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 700; color: #3b82f6; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
+                                <div class="game-cover-placeholder">
                                     {{ strtoupper(substr($game->title, 0, 1)) }}
                                 </div>
                             @endif
@@ -298,26 +482,43 @@
 
                                 <div class="game-price">Rp {{ number_format($game->price, 0, ',', '.') }}</div>
 
-                                <div class="game-stock" style="margin-bottom: 12px;">
+                                <div class="game-stock">
                                     @if ($game->stock > 0)
-                                        <span class="stock-available"><i class="fas fa-check-circle"></i> Stok:
-                                            {{ $game->stock }}</span>
+                                        <span class="stock-available">
+                                            <i class="fas fa-check-circle"></i> Stok: {{ $game->stock }}
+                                        </span>
                                     @else
-                                        <span class="stock-out"><i class="fas fa-times-circle"></i> Stok Habis</span>
+                                        <span class="stock-out">
+                                            <i class="fas fa-times-circle"></i> Stok Habis
+                                        </span>
                                     @endif
                                 </div>
 
                                 <div class="action-buttons">
-                                    <a href="{{ route('user.game.show', $game->id) }}" class="btn-buy btn-detail">
-                                        <i class="fas fa-eye" style="margin-right: 6px;"></i>
+                                    <a href="{{ route('user.game.show', $game->id) }}" class="btn btn-detail">
+                                        <i class="fas fa-eye"></i>
                                         View Detail
                                     </a>
 
-                                    <button class="btn-buy" {{ $game->stock <= 0 ? 'disabled' : '' }}>
-                                        {{ $game->stock > 0 ? '🛒 Beli Sekarang' : 'Stok Habis' }}
-                                    </button>
-                                </div>
+                                    @php
+                                        $isOwned = auth()->user()->games()->where('game_id', $game->id)->exists();
+                                    @endphp
 
+                                    @if ($isOwned)
+                                        <a href="{{ route('play.game', $game->id) }}" class="btn btn-play">
+                                            <i class="fas fa-play"></i>
+                                            Play Game
+                                        </a>
+                                    @else
+                                        <form action="{{ route('cart.add', $game->id) }}" method="POST" style="width: 100%;" onsubmit="return showAddToCartNotification('{{ $game->title }}')">
+                                            @csrf
+                                            <button type="submit" class="btn btn-buy" {{ $game->stock <= 0 ? 'disabled' : '' }}>
+                                                <i class="fas fa-cart-plus"></i>
+                                                {{ $game->stock > 0 ? 'Tambah ke Cart' : 'Stok Habis' }}
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     @endforeach
@@ -330,8 +531,68 @@
                 </div>
             @endif
         </div>
-
     </div>
+
+    <script>
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(title, message, isSuccess = true) {
+            const notification = document.getElementById('cartNotification');
+            const titleEl = document.getElementById('notificationTitle');
+            const messageEl = document.getElementById('notificationMessage');
+            const iconEl = document.querySelector('.notification-icon');
+            
+            // Update konten notifikasi
+            titleEl.textContent = title;
+            messageEl.textContent = message;
+            
+            // Update warna berdasarkan status
+            if (isSuccess) {
+                notification.style.borderLeftColor = '#10b981';
+                iconEl.style.background = 'rgba(16, 185, 129, 0.2)';
+                iconEl.style.color = '#10b981';
+                iconEl.innerHTML = '<i class="fas fa-check"></i>';
+            } else {
+                notification.style.borderLeftColor = '#ef4444';
+                iconEl.style.background = 'rgba(239, 68, 68, 0.2)';
+                iconEl.style.color = '#ef4444';
+                iconEl.innerHTML = '<i class="fas fa-exclamation"></i>';
+            }
+            
+            // Tampilkan notifikasi
+            notification.classList.add('show');
+            
+            // Auto hide setelah 3 detik
+            setTimeout(hideNotification, 3000);
+        }
+        
+        // Fungsi untuk menyembunyikan notifikasi
+        function hideNotification() {
+            const notification = document.getElementById('cartNotification');
+            notification.classList.remove('show');
+        }
+        
+        // Fungsi untuk show notifikasi add to cart (dipanggil sebelum form submit)
+        function showAddToCartNotification(gameTitle) {
+            // Tampilkan notifikasi sukses
+            showNotification('Berhasil! 🎮', `"${gameTitle}" berhasil ditambahkan ke keranjang`, true);
+            
+            // Izinkan form untuk submit (kembalikan true)
+            return true;
+        }
+        
+        // Cek apakah ada session flash message dari server
+        @if(session('success'))
+            document.addEventListener('DOMContentLoaded', function() {
+                showNotification('Berhasil!', '{{ session('success') }}', true);
+            });
+        @endif
+        
+        @if(session('error'))
+            document.addEventListener('DOMContentLoaded', function() {
+                showNotification('Gagal!', '{{ session('error') }}', false);
+            });
+        @endif
+    </script>
 
 </body>
 

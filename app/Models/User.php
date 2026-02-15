@@ -50,4 +50,21 @@ class User extends Authenticatable
             'isAdmin' => 'boolean',
         ];
     }
+
+    /**
+     * Get orders dari user.
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    /**
+     * Get games yang sudah dibeli user.
+     */
+    public function games()
+    {
+        return $this->belongsToMany(Game::class, 'user_games')
+            ->withTimestamps();
+    }
 }

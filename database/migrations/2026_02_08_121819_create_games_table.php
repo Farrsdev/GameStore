@@ -23,6 +23,12 @@ return new class extends Migration
             $table->date('release_date')->nullable();
             $table->float('rating')->nullable();
             $table->string('cover')->nullable();
+            
+            // Field baru untuk game type dan URL/file hosting
+            $table->enum('type', ['browser', 'download'])->default('browser')->comment('Tipe game: browser (iframe) atau download');
+            $table->text('embed_url')->nullable()->comment('URL untuk iframe jika tipe browser');
+            $table->string('file_path')->nullable()->comment('Path file untuk download jika tipe download');
+            
             $table->timestamps();
         });
     }
