@@ -1,333 +1,290 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Farr'sStore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'glass-bg': 'rgba(15, 23, 42, 0.6)',
+                        'glass-border': 'rgba(56, 189, 248, 0.3)',
+                        'primary-blue': '#0ea5e9',
+                        'deep-blue': '#0284c7',
+                        'sky-blue': '#38bdf8',
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        },
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0px)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+
     <style>
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0a0f; /* Fallback */
-            background: 
-                radial-gradient(ellipse at bottom, #0f1629 0%, #0a0a0f 50%),
-                url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23121826" fill-opacity="0.7"%3E%3Cpath d="M12 0L0 12L12 24L24 12L12 0Z M36 0L24 12L36 24L48 12L36 0Z M12 36L0 48L12 60L24 48L12 36Z M36 36L24 48L36 60L48 48L36 36Z" fill-rule="evenodd"/%3E%3C/g%3E%3C/svg%3E');
-            background-attachment: fixed;
-            color: #f8fafc;
+            background: linear-gradient(180deg, #0c1929 0%, #0f172a 50%, #1e293b 100%);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
         }
-        
-        .login-container {
-            width: 100%;
-            max-width: 500px;
+
+        /* Animated Background */
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
         }
-        
-        .logo {
-            text-align: center;
-            margin-bottom: 50px;
+
+        .hero-bg {
+            background:
+                radial-gradient(ellipse at 20% 80%, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(2, 132, 199, 0.08) 0%, transparent 70%);
         }
-        
-        .logo h1 {
-            font-size: 38px;
-            font-weight: 800;
-            background: linear-gradient(90deg, #60a5fa, #3b82f6, #2563eb);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: 1.5px; /* Increased letter spacing for impact */
-            margin-bottom: 8px;
-            text-shadow: 0 0 15px rgba(59, 130, 246, 0.6); /* Subtle glow */
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
         }
-        
-        .logo p {
-            color: #94a3b8;
-            font-size: 15px;
-            letter-spacing: 0.8px; /* Added letter spacing */
+
+        .glass-card:hover {
+            border-color: rgba(56, 189, 248, 0.4);
         }
-        
-        .login-card {
-            background: #121826;
-            border-radius: 16px;
-            padding: 55px 50px; /* Increased padding further */
-            border: 1px solid #2e3a52; /* Slightly darker, more prominent border */
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.6), /* More pronounced shadow */
-                inset 0 1px 0 rgba(255, 255, 255, 0.08), /* Brighter inner highlight */
-                0 0 30px rgba(59, 130, 246, 0.2); /* Subtle blue glow */
+
+        /* Input Styles */
+        .input-glass {
+            background: rgba(13, 17, 23, 0.8);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            transition: all 0.3s ease;
         }
-        
-        .login-header {
-            margin-bottom: 35px;
-        }
-        
-        .login-header h2 {
-            font-size: 28px;
-            color: #fff;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        
-        .login-header p {
-            color: #a0aec0;
-            font-size: 15px;
-            letter-spacing: 0.3px;
-        }
-        
-        .form-group {
-            margin-bottom: 24px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            color: #e2e8f0;
-            font-size: 15px;
-            font-weight: 600;
-        }
-        
-        .input-field {
-            width: 100%;
-            padding: 15px 18px;
-            background: #0d1117;
-            border: 1px solid #2d3748;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-        
-        .input-field:focus {
+
+        .input-glass:focus {
+            border-color: rgba(56, 189, 248, 0.6);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15),
+                0 0 20px rgba(56, 189, 248, 0.2);
+            background: rgba(13, 17, 23, 0.9);
             outline: none;
-            border-color: #4a90e2; /* Brighter blue on focus */
-            box-shadow: 
-                0 0 0 4px rgba(74, 144, 226, 0.2), /* Larger, softer glow */
-                0 0 20px rgba(74, 144, 226, 0.2); /* More intense focus glow */
-            background: #0d1117; /* Keep background dark on focus */
         }
-        
-        .input-field::placeholder {
-            color: #6b7280; /* Slightly lighter placeholder */
+
+        /* Button Styles */
+        .btn-blue-glow {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+            transition: all 0.3s ease;
         }
-        
-        .login-btn {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(90deg, #4a90e2, #2563eb); /* Updated gradient for consistency */
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 17px; /* Slightly larger font */
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease; /* Smoother transition */
-            margin-top: 20px; /* Increased margin */
-            letter-spacing: 0.8px;
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4); /* More spread out shadow */
+
+        .btn-blue-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.6);
         }
-        
-        .login-btn:hover {
-            background: linear-gradient(90deg, #2563eb, #1d4ed8);
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.5); /* Stronger shadow on hover */
-            transform: translateY(-3px); /* More pronounced lift */
+
+        /* Text Gradient */
+        .text-gradient {
+            background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 50%, #0284c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
-        .login-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 3px 10px rgba(37, 99, 235, 0.4);
+
+        /* Floating Animation */
+        .floating {
+            animation: float 6s ease-in-out infinite;
         }
-        
-        .register-link {
-            text-align: center;
-            margin-top: 35px;
-            padding-top: 30px;
-            border-top: 1px solid #2f3a4e; /* Slightly darker border */
-            color: #94a3b8;
-            font-size: 15px;
+
+        .floating:nth-child(2) {
+            animation-delay: -2s;
         }
-        
-        .register-link a {
-            color: #4a90e2; /* Updated link color */
-            text-decoration: none;
-            font-weight: 700;
-            margin-left: 5px;
-            position: relative;
-            padding-bottom: 2px;
-        }
-        
-        .register-link a::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background: #4a90e2; /* Match link color */
-            transform: scaleX(0);
-            transition: transform 0.3s ease; /* Smoother transition */
-        }
-        
-        .register-link a:hover::after {
-            transform: scaleX(1);
-        }
-        
-        .error-message {
-            background: rgba(220, 38, 38, 0.2); /* Slightly more opaque background */
-            border: 1px solid rgba(252, 165, 165, 0.4); /* Lighter, more visible border */
-            padding: 15px 20px; /* Increased padding */
-            border-radius: 10px;
-            margin-bottom: 28px; /* Increased margin */
-            color: #fca5a5;
-            font-size: 15px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 12px; /* Increased gap */
-            box-shadow: 0 0 15px rgba(220, 38, 38, 0.2); /* Red glow for error */
-        }
-        
-        .error-message::before {
-            content: "🚨"; /* More impactful icon */
-            font-size: 20px; /* Larger icon */
-        }
-        
-        .back-home {
-            text-align: center;
-            margin-top: 40px;
-        }
-        
-        .back-home a {
-            color: #94a3b8;
-            text-decoration: none;
-            font-size: 15px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-        
-        .back-home a:hover {
-            color: #cbd5e1;
-            background: rgba(148, 163, 184, 0.1);
-        }
-        
-        /* Animation for the form */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .login-card {
-            animation: fadeIn 0.6s ease-out;
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 600px) {
-            .login-container {
-                max-width: 100%;
-            }
-            
-            .login-card {
-                padding: 40px 30px;
-            }
-            
-            .logo h1 {
-                font-size: 32px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .login-card {
-                padding: 35px 25px;
-            }
-            
-            .logo h1 {
-                font-size: 28px;
-            }
-            
-            body {
-                padding: 15px;
-            }
+
+        .floating:nth-child(3) {
+            animation-delay: -4s;
         }
     </style>
 </head>
-<body>
-    <div class="login-container">
-        <div class="logo">
-            <h1>Farr'sStore</h1>
-            <p>Game Store Platform</p>
-        </div>
-        
-        <div class="login-card">
-            @if ($errors->any())
-                <div class="error-message">
-                    Email atau password salah
-                </div>
-            @endif
-            
-            <div class="login-header">
-                <h2>Login</h2>
-                <p>Masuk ke akun Anda</p>
+
+<body class="text-gray-100 min-h-screen font-inter">
+    <!-- Animated Background -->
+    <div class="fixed inset-0 grid-bg hero-bg -z-10"></div>
+
+    <!-- Floating Decorative Elements -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden">
+        <div class="floating absolute top-20 left-10 w-32 h-32 bg-sky-500/10 rounded-full blur-3xl"></div>
+        <div class="floating absolute bottom-20 right-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"
+            style="animation-delay: -2s;"></div>
+        <div class="floating absolute top-1/2 left-1/4 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl"
+            style="animation-delay: -4s;"></div>
+    </div>
+
+    <div class="min-h-screen flex items-center justify-center px-4 py-12">
+        <div class="w-full max-w-md">
+            <!-- Logo -->
+            <div class="text-center mb-10 animate-fade-in">
+                <a href="/" class="inline-flex items-center space-x-3 group">
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center shadow-lg group-hover:animate-pulse">
+                        <i class="fas fa-gamepad text-white text-2xl"></i>
+                    </div>
+                </a>
+                <h1 class="text-4xl font-extrabold mt-6 mb-2 text-gradient"
+                    style="letter-spacing: 1.5px; text-shadow: 0 0 30px rgba(56, 189, 248, 0.5);">
+                    Farr'sStore
+                </h1>
+                <p class="text-gray-400 text-sm">Your Ultimate Game Store</p>
             </div>
-            
-            <form method="POST" action="{{ url('/login') }}">
-                @csrf
-                
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        class="input-field"
-                        placeholder="you@example.com"
-                        value="{{ old('email') }}"
-                        required
-                    >
+
+            <!-- Login Card -->
+            <div class="glass-card rounded-3xl p-8 animate-fade-in" style="animation-delay: 0.1s;">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-white mb-2">Selamat Datang Kembali</h2>
+                    <p class="text-gray-400 text-sm">Masuk ke akun kamu untuk melanjutkan</p>
                 </div>
-                
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        class="input-field"
-                        placeholder="••••••••"
-                        required
-                    >
+
+                <!-- Error Messages -->
+                @if ($errors->any())
+                    <div
+                        class="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-sm flex items-center gap-3">
+                        <i class="fas fa-exclamation-circle text-red-400"></i>
+                        <div>
+                            @foreach ($errors->all() as $error)
+                                <p class="text-red-300">{{ $error }}</p>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
+                <form method="POST" action="{{ url('/login') }}">
+                    @csrf
+
+                    <!-- Email -->
+                    <div class="mb-5">
+                        <label for="email" class="block text-gray-300 mb-3 text-sm font-medium">Email</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-500">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                            <input type="email" id="email" name="email" value="{{ old('email') }}"
+                                class="w-full p-4 pl-12 input-glass rounded-xl text-gray-100 placeholder-gray-500"
+                                placeholder="Masukkan email kamu" required autofocus>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-6">
+                        <label for="password" class="block text-gray-300 mb-3 text-sm font-medium">Password</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-500">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                            <input type="password" id="password" name="password"
+                                class="w-full p-4 pl-12 input-glass rounded-xl text-gray-100 placeholder-gray-500"
+                                placeholder="Masukkan password" required>
+                            <button type="button" onclick="togglePassword('password')"
+                                class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500 hover:text-sky-400">
+                                <i class="fas fa-eye" id="password-toggle"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Remember Me -->
+                    <div class="flex items-center justify-between mb-6">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" name="remember"
+                                class="w-4 h-4 rounded border-gray-600 bg-gray-800 text-sky-500 focus:ring-sky-500 focus:ring-2">
+                            <span class="ml-2 text-sm text-gray-400">Ingat saya</span>
+                        </label>
+                        <a href="#" class="text-sm text-sky-400 hover:text-sky-300 transition-colors">
+                            Lupa password?
+                        </a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full btn-blue-glow py-4 rounded-xl font-bold text-white text-lg">
+                        <i class="fas fa-sign-in-alt mr-2"></i>
+                        Masuk
+                    </button>
+                </form>
+
+                <!-- Register Link -->
+                <div class="mt-8 pt-6 border-t border-sky-500/20 text-center">
+                    <p class="text-gray-400 text-sm">
+                        Belum punya akun?
+                        <a href="{{ url('/register') }}"
+                            class="text-sky-400 font-semibold hover:text-sky-300 transition-colors ml-1">
+                            Daftar sekarang
+                        </a>
+                    </p>
                 </div>
-                
-                <button type="submit" class="login-btn">Login</button>
-                
-                <div class="register-link">
-                    Belum punya akun?
-                    <a href="{{ url('/register') }}">Daftar disini</a>
-                </div>
-            </form>
-        </div>
-        
-        <div class="back-home">
-            <a href="/">
-                ← Kembali ke halaman utama
-            </a>
+            </div>
+
+            <!-- Back to Home -->
+            <div class="text-center mt-8 animate-fade-in" style="animation-delay: 0.2s;">
+                <a href="/"
+                    class="inline-flex items-center gap-2 text-gray-400 hover:text-sky-400 transition-colors">
+                    <i class="fas fa-arrow-left"></i>
+                    Kembali ke Home
+                </a>
+            </div>
         </div>
     </div>
+
+    <script>
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(inputId + '-toggle');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </body>
+
 </html>

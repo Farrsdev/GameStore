@@ -306,15 +306,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="genre">Genre *</label>
-                    <input type="text" name="genre" id="genre" class="form-control"
-                        placeholder="e.g., Action, Adventure, RPG" value="{{ old('genre', $game->genre) }}" required>
-                    @error('genre')
-                        <div class="error-message">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="form-group">
                     <label>Genres * <small style="color: #64748b; font-weight: 400;">(Pilih minimal 1)</small></label>
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 10px;">
                         @forelse($genres as $genre)

@@ -19,7 +19,6 @@ class Game extends Model
         'description',
         'developer',
         'platform',
-        'genre',
         'stock',
         'price',
         'release_date',

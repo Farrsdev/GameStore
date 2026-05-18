@@ -9,7 +9,8 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PlayController;
 
 Route::get('/', function () {
-    return view('welcome');
+    $games = \App\Models\Game::with('genres')->latest()->take(6)->get();
+    return view('welcome', compact('games'));
 });
 
 
@@ -21,7 +22,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/register', function () {
     return view('auth.register');
-});
+})->name('register');
 
 Route::post('/register', [AuthController::class, 'register']);
 
